@@ -1,3 +1,8 @@
+# Docker compose script to get postgres:13 and pgadmin 4 running locally.
+# I added a 0 to the end of the default ports in case you already have
+# non-containerized versions of this software running.
+# All marked values should probably be changed to suit.
+# @see https://linuxhint.com/postgresql_docker/
 version: "3.7"
 
 services:
@@ -6,8 +11,9 @@ services:
     restart: always
     environment:
       POSTGRES_DB: postgres
-      POSTGRES_USER: postgres 
-      POSTGRES_PASSWORD: password 
+      POSTGRES_USER: postgres
+      # Probably change password to something more secure
+      POSTGRES_PASSWORD: password
       PGDATA: /var/lib/postgresql/data
     volumes:
       - db-data:/var/lib/postgresql/data
@@ -22,7 +28,7 @@ services:
       PGADMIN_DEFAULT_PASSWORD: password
       PGADMIN_LISTEN_PORT: 80
     ports:
-      - "8080:80"
+      - "50500:80"
     volumes:
       - pgadmin-data:/var/lib/pgadmin
     links:
